@@ -337,6 +337,10 @@ actions:
               having count(*) > 1
             ) a;
 ```
+## Mailing list
+If you would like to ask any questions about or discuss Quibble please join our mailing list at
+https://groups.google.com/forum/#!forum/quibble-user
+
 ## Credits
 Created by Qaiser Malik, Sandeep Shetty with thanks to: [Adrian Woodhead](https://github.com/massdosage), [Elliot West](https://github.com/teabot), Arun Gurumurthy, Jason Granum, Jose Nunez Izu, Randal Boyle.
 
