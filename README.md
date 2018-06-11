@@ -338,7 +338,7 @@ actions:
             ) a;
 ```
 ## Credits
-Created by Qaiser Malik, Sandeep Shetty, Jason Granum with thanks to: Adrian Woodhead, Elliot West, Arun Gurumurthy, Jose Nunez Izu, Randal Boyle.
+Created by Qaiser Malik, Sandeep Shetty with thanks to: [Adrian Woodhead](https://github.com/massdosage), [Elliot West](https://github.com/teabot), Arun Gurumurthy, Jason Granum, Jose Nunez Izu, Randal Boyle.
 
 ## Legal
 This project is available under the [Apache 2.0 License.](http://www.apache.org/licenses/LICENSE-2.0.html "Apache 2.0 License.")
