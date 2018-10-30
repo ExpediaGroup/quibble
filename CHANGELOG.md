@@ -7,3 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [1.0.0] - 2017-09-01
+
+## [1.0.1] - 2018-10-30
+
+Updated jackson dependency in pom and added the new logo.
