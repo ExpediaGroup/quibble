@@ -1,4 +1,3 @@
-# Quibble
 ![Bee quibble-data on hive.](quibble.png "Data Validator.")
 ## Overview
 Quibble is a data validator tool to allow testers, developers and analysts to define and execute test-cases involving data. Quibble is able 
