@@ -71,11 +71,11 @@ public class DataMatchTestExecutor extends DatasetTestTypeExecutor {
   int getMaxAllowedMismatchLimit(String reportDifferences) {
     int maxAllowedMismatches = 0;
 
-    if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(reportDifferences, NONE)) {
+    if (StringUtils.equalsIgnoreCase(reportDifferences, NONE)) {
       maxAllowedMismatches = 0;
-    } else if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(reportDifferences, ALL)) {
+    } else if (StringUtils.equalsIgnoreCase(reportDifferences, ALL)) {
       maxAllowedMismatches = DEFAULT_MAX_ALLOWED_MISMATCHES;
-    } else if (org.apache.commons.lang.StringUtils.isNumeric(reportDifferences)) {
+    } else if (StringUtils.isNumeric(reportDifferences)) {
       long reportDiffsCount = Long.parseLong(reportDifferences);
       if (reportDiffsCount > 0) {
         maxAllowedMismatches = (int) Math.min(DEFAULT_MAX_ALLOWED_MISMATCHES, reportDiffsCount);
@@ -311,7 +311,7 @@ public class DataMatchTestExecutor extends DatasetTestTypeExecutor {
     BitSet differences = new BitSet(firstRow.length);
 
     for (int index = 0; index < firstRow.length; index++) {
-      if (!org.apache.commons.lang.StringUtils.equals(firstRow[index], secondRow[index])) {
+      if (!StringUtils.equals(firstRow[index], secondRow[index])) {
         differences.set(index);
         rowMatched = false;
       }
