@@ -24,9 +24,6 @@ nbactions.xml
 # Maven target folder
 target/
 
-# Any left over .svn folders
-.svn/
-
 # MAC stuff
 .DS_Store
 
@@ -36,9 +33,6 @@ target/
 # Hive
 metastore_db/
 derby.log
-
-# Job Specific Config
-circus-train.yml
 
 # Ignore GPG files
 **/*.gpg
