@@ -250,9 +250,9 @@ public class YamlTestLoaderTest {
   public void checkEmptyTestPath() throws Exception {
     String REQUIRED_TEST_NAME = "";
     String checkDuplicateTestNames = "false";
-    String testPath = ".";
+    File emptyFolder = folder.newFolder();
 
-    YamlTestLoader testLoader = new YamlTestLoader(testPath, REQUIRED_TEST_NAME, checkDuplicateTestNames);
+    YamlTestLoader testLoader = new YamlTestLoader(emptyFolder.getAbsolutePath(), REQUIRED_TEST_NAME, checkDuplicateTestNames);
     List<TestCase[]> allLoadedTests = testLoader.loadTests();
 
     assertThat(allLoadedTests.size(), is(0));
