@@ -1,0 +1,9 @@
+language: java
+jdk:
+  - openjdk7
+os:
+  - linux
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P travis
+script:
+  - mvn clean test cobertura:cobertura -B -P travis
