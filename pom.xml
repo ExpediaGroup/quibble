@@ -7,7 +7,7 @@
   <parent>
     <groupId>com.hotels</groupId>
     <artifactId>hotels-oss-parent</artifactId>
-    <version>2.0.6</version>
+    <version>4.0.1</version>
   </parent>
 
   <artifactId>quibble</artifactId>
@@ -15,8 +15,9 @@
   <name>Quibble</name>
 
   <scm>
-    <connection>scm:git:ssh://git@stash:7999/hdw/hww-expat.git</connection>
-    <developerConnection>scm:git:ssh://git@stash:7999/hdw/hww-expat.git</developerConnection>
+    <connection>scm:git:git@github.com:HotelsDotCom/quibble.git</connection>
+    <developerConnection>scm:git:git@github.com:HotelsDotCom/quibble.git</developerConnection>
+    <url>https://github.com/HotelsDotCom/quibble</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -59,8 +60,8 @@
 
     <dependency>
       <groupId>com.microsoft.sqlserver</groupId>
-      <artifactId>sqljdbc</artifactId>
-      <version>4.1</version>
+      <artifactId>sqljdbc4</artifactId>
+      <version>4.0</version>
     </dependency>
 
     <dependency>
@@ -163,13 +164,7 @@
     <dependency>
       <groupId>org.apache.hive</groupId>
       <artifactId>hive-jdbc</artifactId>
-      <version>2.0.0</version>
-      <exclusions>
-        <exclusion>
-          <groupId>ant</groupId>
-          <artifactId>ant</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>2.3.4</version>
     </dependency>
 
     <dependency>
