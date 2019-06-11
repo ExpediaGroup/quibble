@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015-2018 Expedia Inc.
+ * Copyright (C) 2015-2019 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -250,9 +250,9 @@ public class YamlTestLoaderTest {
   public void checkEmptyTestPath() throws Exception {
     String REQUIRED_TEST_NAME = "";
     String checkDuplicateTestNames = "false";
-    String testPath = ".";
+    File emptyFolder = folder.newFolder();
 
-    YamlTestLoader testLoader = new YamlTestLoader(testPath, REQUIRED_TEST_NAME, checkDuplicateTestNames);
+    YamlTestLoader testLoader = new YamlTestLoader(emptyFolder.getAbsolutePath(), REQUIRED_TEST_NAME, checkDuplicateTestNames);
     List<TestCase[]> allLoadedTests = testLoader.loadTests();
 
     assertThat(allLoadedTests.size(), is(0));

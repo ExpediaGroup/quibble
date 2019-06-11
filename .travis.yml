@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - openjdk7
+os:
+  - linux
+dist: trusty
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true --quiet --batch-mode --show-version --activate-profiles travis
+script:
+  - mvn clean test cobertura:cobertura --batch-mode --activate-profiles travis
