@@ -5,6 +5,6 @@ os:
   - linux
 dist: trusty
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P travis
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true --quiet --batch-mode --show-version --activate-profiles travis
 script:
   - mvn clean test cobertura:cobertura -B -P travis
