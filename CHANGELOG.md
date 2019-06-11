@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Removed
 - DB2 and Teradata drivers (not available in Maven Central).
+
 ## [1.0.0] - 2018-10-30
 ### Added
 - Initial release
