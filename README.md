@@ -1,10 +1,15 @@
 ![Bee quibble-data on hive.](quibble.png "Data Validator.")
+
+## Status ⚠️
+
+This project is no longer in active development.
+
 ## Overview
-Quibble is a data validator tool to allow testers, developers and analysts to define and execute test-cases involving data. Quibble is able 
-to compare data from one or more data platforms, assert on the outcome, highlight any data differences and produce generated report output. 
+Quibble is a data validator tool to allow testers, developers and analysts to define and execute test-cases involving data. Quibble is able
+to compare data from one or more data platforms, assert on the outcome, highlight any data differences and produce generated report output.
 Commonly used test scenarios such as sampling queries and minus query output can be easily automated and validated.
 Data ETL testing, migration testing and database upgrade testing are the key areas where Quibble can be utilised the most.
-In principle, you can use Quibble to test data on some of the common data sources like below. In fact, Quibble can be utilised on any 
+In principle, you can use Quibble to test data on some of the common data sources like below. In fact, Quibble can be utilised on any
 relational database that can be connected via JDBC drivers.
 - Hive
 - db2
@@ -17,20 +22,20 @@ Quibble has been tested with Hive version 1.2, Teradata, shell and SQLserver env
 ![Bee quibble-data on hive.](Workflow.png "Data Validator.")
 ## Installation
 Build Quibble via ` mvn clean package `
-Once maven build is performed, Quibble can be made available as a RPM Package to be installed. Yum can be used to install Quibble as shown 
+Once maven build is performed, Quibble can be made available as a RPM Package to be installed. Yum can be used to install Quibble as shown
 below.
-```sh 
-sudo yum install quibble 
+```sh
+sudo yum install quibble
 ```
 Please note : Quibble requires JRE Version 7 and above to be available on the system.
 ## Configuration
 Once installation is complete, the configuration needs to be set up under ` /opt/quibble/conf `
 To use Quibble, you need to:
 ### Set up a connection to the data source
-##### Step 1 : Create a connections configuration file 
+##### Step 1 : Create a connections configuration file
 In the directory ` /opt/quibble/conf `, create a file called connections.yaml (connections.yml may also be used).
 ##### Step 2 : Configure file
-In the newly-created file, add the platform, URL, username, password and driver, following the examples below. You can specify multiple 
+In the newly-created file, add the platform, URL, username, password and driver, following the examples below. You can specify multiple
 platforms, separating them with three hyphens (-), as in the examples. Note that the first platform must also start with (---).
 The property keys (platform, url, username…) are case sensitive and have to be lowercase as shown below.
 ```yaml
@@ -48,58 +53,58 @@ password: TeradataUserPassword
 driver: com.teradata.jdbc.TeraDriver
 ```
 ### Defining a location to save the log files
-Test case execution status messages and output can be optionally logged in log files and printed on the console. Quibble framework uses 
+Test case execution status messages and output can be optionally logged in log files and printed on the console. Quibble framework uses
 SLF4J(http://www.slf4j.org) with Apache Log4j (http://logging.apache.org/log4j/) logging mechanism. Logging configurations can be provided by 
 log4j.xml file.
 There are ways to specify the log file location:
 -    By defining an environment variable, which allows you to set the log file at runtime
 -    You could also pass custom log4j.xml with details on the classpath
 Defining the log file path by setting an environment variable at runtime
-In an XML editor, open `/opt/quibble/conf/log4j.xml` 
-Within the `<appender>` node for the action you want to be logged, edit the file parameter to contain the Log_output_file environment 
+In an XML editor, open `/opt/quibble/conf/log4j.xml`
+Within the `<appender>` node for the action you want to be logged, edit the file parameter to contain the Log_output_file environment
 variable. You may need to add a new parameter node if it doesn’t already exist.
 `<param name="file" value=" ${Log_output_file}"/>`
 ### Defining the tests you want to run
 To define a Quibble test, you need to create a new YAML file. In the file, you will set:
 -    the test type
 -    the test name
-While it is best practice for the test name to be unique, it doesn't have to be, unless you enforce this rule with the 
-checkDuplicateTestNames parameter when you run the test. 
+While it is best practice for the test name to be unique, it doesn't have to be, unless you enforce this rule with the
+checkDuplicateTestNames parameter when you run the test.
 -    a description to help you describe the test (optional)
 -    the actions
-Actions specify the command(s) to be run, for example a SQL query, and which platform(s) to run it on. 
+Actions specify the command(s) to be run, for example a SQL query, and which platform(s) to run it on.
 The platform must match a platform name in the connections.yaml file you created earlier.
 #### Supported test types
 The following test types are supported:
-###### -  zero_count : 
-For this test type to pass, all queries and commands in the test must return zero for the test. This is useful to check for null values, or 
+###### -  zero_count :
+For this test type to pass, all queries and commands in the test must return zero for the test. This is useful to check for null values, or
 to check for duplicates.
-###### -  count_match : 
-For this test type to pass, all queries and commands in the test must return the same single numeric value. This is useful to check whether 
+###### -  count_match :
+For this test type to pass, all queries and commands in the test must return the same single numeric value. This is useful to check whether
 there are exactly the same number of rows between two copies of the data stored on different platforms.
-###### -  count_match_with_threshold : 
+###### -  count_match_with_threshold :
 This test type is similar to count_match, except that the test will pass if the data is different but within a certain percentage tolerance.
- 
-The difference percentage is in fact a percentage decrease which is calculated with respect to largest value returned by the actions. For 
-example, if a test case contains three actions and threshold difference is allowed to be 10%, and suppose the first action returns 1000 and 
-the second actions returns 800 and the third action returns 900, then the percentage difference will be calculated between the highest (1000) 
-and the lowest (800) number such that it is a percentage decrease, which in this case is 20%. Since 20% is higher than 10% allowed for this 
+
+The difference percentage is in fact a percentage decrease which is calculated with respect to largest value returned by the actions. For
+example, if a test case contains three actions and threshold difference is allowed to be 10%, and suppose the first action returns 1000 and
+the second actions returns 800 and the third action returns 900, then the percentage difference will be calculated between the highest (1000)
+and the lowest (800) number such that it is a percentage decrease, which in this case is 20%. Since 20% is higher than 10% allowed for this
 test case, this test case fails.
-This is useful if the two data sources should be the same but one might be slightly delayed with respect to the other, so you are willing to 
+This is useful if the two data sources should be the same but one might be slightly delayed with respect to the other, so you are willing to
 accept a small difference in the volume of data.
-###### -  data_match : 
+###### -  data_match :
 For this test type to pass, all the returned data, in both columns and rows, must match each other. This match can be for any data type. You
  aren't limited to numeric values.
-Currently, only two queries per test case are supported. If you need to compare data between more than two queries, break down your test 
-case into multiple test cases. Although there is no limit on the amount of data returned, Quibble may take a long time if there is a lot of 
+Currently, only two queries per test case are supported. If you need to compare data between more than two queries, break down your test
+case into multiple test cases. Although there is no limit on the amount of data returned, Quibble may take a long time if there is a lot of
 data to match.
-###### -  keyed_threshold : 
-This testype allows the calculation of data to identify difference between the returned numeric values for each columns, from the given 
-tables, and reports if it is within or not a permitted threshold percentage defined individually based on the column index. The difference 
-percentage is calculated based on the difference in column value from one table when compared to the column value from other table. The 
+###### -  keyed_threshold :
+This testype allows the calculation of data to identify difference between the returned numeric values for each columns, from the given
+tables, and reports if it is within or not a permitted threshold percentage defined individually based on the column index. The difference
+percentage is calculated based on the difference in column value from one table when compared to the column value from other table. The
 thresholds are defined individually for each columns based on the column position/index.
-For example, if threshold difference for a column value based on index is allowed to be 5% and suppose if the first column returns 120 and 
-the other column of the same position returns 130 from another table then the percentage difference will be calculated between the highest 
+For example, if threshold difference for a column value based on index is allowed to be 5% and suppose if the first column returns 120 and
+the other column of the same position returns 130 from another table then the percentage difference will be calculated between the highest
 and lowest column values, and suppose if it is within the specified 5% threshold, then the test case passes.
 column 1 from table A - 140
 column 1 from table B - 130
@@ -166,7 +171,7 @@ actions:
  - platform: teradata
    command: select 120,140,160
 ```
-It is possible to include environment variables in commands inside the YAML file. In the sample file, the test named 'Testing points count 
+It is possible to include environment variables in commands inside the YAML file. In the sample file, the test named 'Testing points count
 for Transaction and Aggregate tables' contains an example of this.
 ```yaml
 
@@ -189,7 +194,7 @@ Please note that:
 -    The environment variables must set before they are used in the test case.
 -    At the moment, using environment variables is only supported in the command section of a test case as shown by above example.
 ### Running tests using Quibble
-To run a test using Quibble, run the Quibble jar file at a prompt. You must provide the configuration files and test cases as parameters. 
+To run a test using Quibble, run the Quibble jar file at a prompt. You must provide the configuration files and test cases as parameters.
 For example, to run tests saved in the /path/to/test/directory/ directory, using configuration files stored in /path/to/conf/directory/, and
  a log4j configuration file stored in /path/to/conf/log4j.xml, you would run:
 ```java
@@ -228,7 +233,7 @@ Note that the XLSX spreadsheet is not produced if the value of -DReportDiffs= wa
 
     ---FAILED TESTS---
     Test Name: Testing count match between TABLE1 SQL Server and Teradata table2. (metric: com.hotels.hdw.graphite.default-dq.tests.testing-count-match-between-table1-sql-server-and-teradata-table2)
-         Reason: Counts from all queries/commands do not match within permitted threshold value: 0.0 
+         Reason: Counts from all queries/commands do not match within permitted threshold value: 0.0
             Platform: teradata returned: 104831920 rows
             Platform: sqlserver returned: 104833302 rows
 
@@ -242,8 +247,8 @@ Note that the XLSX spreadsheet is not produced if the value of -DReportDiffs= wa
     ------------------------------------------------------------------------------------
 
 ### Displaying results with Graphite
-[Graphite](http://graphite.readthedocs.io/en/latest/index.html) is an open-source tool for storing metrics and presenting them as graphs. 
-After running a test in Quibble, you can send the results to Graphite. This allows you to store metrics like the number of passed tests, or 
+[Graphite](http://graphite.readthedocs.io/en/latest/index.html) is an open-source tool for storing metrics and presenting them as graphs.
+After running a test in Quibble, you can send the results to Graphite. This allows you to store metrics like the number of passed tests, or
 the success/failure state of a specific test. Once the data is in Graphite, you might wish to display the data in a [Grafana](https://grafana.
 com/) dashboard, or use [Seyren](https://github.com/scobal/seyren) to alert on abnormal metrics. Using these extensions is outside the scope
  of this documentation.
@@ -252,18 +257,18 @@ The following metrics are currently sent from Quibble to Graphite:
 -    Total number of passed tests
 -    Total number of failed tests
 -    Total number of skipped tests
--    Success/Failure flag for each one of the test cases. 
-To send metrics to Graphite, create a graphite.properties  file at directory /path/to/conf/graphites.propertiess and add the following 
+-    Success/Failure flag for each one of the test cases.
+To send metrics to Graphite, create a graphite.properties  file at directory /path/to/conf/graphites.propertiess and add the following
 lines:
 graphite.host=<Domain name of your Graphite instance>
 graphite.port=2003
 graphite.prefix=quibble
-Note: We recommend you specify the –Ddq.name= parameter when running Quibble, so that the metrics are reported to a more meaningful name 
+Note: We recommend you specify the –Ddq.name= parameter when running Quibble, so that the metrics are reported to a more meaningful name
 than the default.
 Ex: –Ddq.name=com.hotels.hdw.graphite.my-test-case
-Running through a wrapper shell script 
+Running through a wrapper shell script
 A wrapper script (run_quibble.sh) can been added to the Quibble project which makes it easy to configure and execute the framework. The cont
-ents of the run_quibble.sh file are shown here. Please note that this script is just a template/example and should be modified to your own 
+ents of the run_quibble.sh file are shown here. Please note that this script is just a template/example and should be modified to your own
 requirements and environment settings.
 As it can be seen that this script also creates a report output directory and can send the generated reports via email.
 ```shell
@@ -313,9 +318,9 @@ It is best to check if your test case is in a valid YAML format by checking agai
 The following are some basic rules for YAML features supported in our test case specification.
 a.    A test file may contain multiple test cases each separated by three hyphens as shown in the following example.
 b.    Comments can be added starting with # character just like in Python or Shell scripts. For multiline comments, start each line with # character (Sorry! no other way available)
-c.    Each item in a list starts with hyphen+space. For example, each command under actions is indented with one space character and then a 
+c.    Each item in a list starts with hyphen+space. For example, each command under actions is indented with one space character and then a
 hyphen+space is used.
-d.    The key value pairs are separated by a colon : character. For example, testType : zero_count. Please note that it will be an error if 
+d.    The key value pairs are separated by a colon : character. For example, testType : zero_count. Please note that it will be an error if
 there is no space between key, colon and value (e.g. testType:zero_count is not allowed)
 i.    A multiline value starts with > symbol as shown in the below example.
 First test Example
